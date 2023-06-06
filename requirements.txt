@@ -1,0 +1,8 @@
+gym==0.15.7
+gym-notices==0.0.8
+matplotlib==3.5.3
+matplotlib-inline==0.1.6
+numpy==1.18.4
+torch==1.13.1
+tqdm==4.65.0
+wandb==0.15.3

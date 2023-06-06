@@ -1,0 +1,110 @@
+---
+# the config file must guarantee the key equals to class NAME
+# total 859 envs, can be retrived by [all_envs = gym.envs.registry.all()]
+###################### ENVS ########################
+Envs:
+  env_name: Pendulum-v0      # CartPole-v0 for discerte action space; Pendulum-v0 for continus action space.
+  action_dim: 1              # output dim for those continus action space env
+
+###################### MODELS ######################
+VAnet:
+  hidden_dim: 128
+
+Qnet:
+  hidden_dim: 128
+
+PolicyNet:
+  hidden_dim: 128
+
+ValueNet:
+  hidden_dim: 128
+
+PolicyNetDDPG:
+  hidden_dim: 128
+  action_bound: 1
+
+QValueNet:
+  hidden_dim: 128
+
+PolicyNetContinuousSAC:
+  hidden_dim: 128
+
+QValueNetContinuousSAC:
+  hidden_dim: 128
+
+#################### ALGORITHMS ####################
+VPG:
+  lr: 0.002
+  gamma: 0.98
+  # state_dim: 10
+  # hidden_dim: 128
+  # action_dim: 11
+
+DQN:
+  lr: 0.002
+  gamma: 0.98
+  target_update: 10           # only for DQN how offen to align q_net and q_target_net
+  epsilon: 0.01               # epsilon-greedy to balance explotation and exploration
+  
+ActorCritic:
+  actor_lr: 0.001
+  critic_lr: 0.01
+  gamma: 0.98
+
+TRPO:
+  gamma: 0.98
+  lmbda: 0.95
+  critic_lr: 0.01
+  kl_constraint: 0.0005
+  alpha: 0.5
+
+PPO:
+  actor_lr: 0.001
+  critic_lr: 0.01
+  gamma: 0.98
+  lmbda: 0.95
+  epochs: 10
+  eps: 0.2
+
+PPOContinuous:
+  actor_lr: 0.001
+  critic_lr: 0.01
+  gamma: 0.98
+  lmbda: 0.95
+  epochs: 10
+  eps: 0.2
+
+DDPG:
+  actor_lr: 0.001
+  critic_lr: 0.01
+  tau: 0.005               # 软更新参数
+  gamma: 0.98
+  sigma: 0.01              # 高斯噪声标准差
+
+SACContinuous:
+  actor_lr: 0.0003
+  critic_lr: 0.003
+  alpha_lr: 0.0003
+  tau: 0.005               # 软更新参数
+  gamma: 0.99
+
+##################### UTILS ######################
+ReplayBuffer:
+  buffer_size: 100000          # only for off policy
+
+#################### LOGGERS #####################
+Logger:
+  wandb_project: HRL
+
+#################### RUNNNER #####################
+# PPO should also set the env.action_dim=1 above this file when env is continuous.
+# DQN should also set the env.action_dim=11 above this file when env is continuous.
+Runner:
+  algo: SACContinuous           # {offpolicy} VanillaDQN, DoubleDQN, DuelingDQN, DDPG,SACContinuous |{onpolicy} VPG(REINFORCE), ActorCritic, TRPO, PPO, PPOContinuous
+  num_episodes: 500           # how many episodes to run
+  minimal_size: 1000           # only when buffer size growning up to minimal_size, it can start training qnet work
+  batch_size: 64              # only for off policy
+  hidden_dim: 64
+  device: cuda
+  seed: 0
+
