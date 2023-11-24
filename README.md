@@ -46,6 +46,6 @@ The Gallery's enter point.
 
 
 
-![logs](https://cdn.staticaly.com/gh/HongdaChen/image-home@master/20230606/image.37oy1dy4s0c0.png)
+![logs](https://github.com/HongdaChen/image-home/blob/master/20230606/image.37oy1dy4s0c0.png?raw=true)
 
 
